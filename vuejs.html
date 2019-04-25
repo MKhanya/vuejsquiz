@@ -1,0 +1,244 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+</head>
+<body>
+    <div id="app">
+        <h1>{{ quiz.title }}</h1>
+        <div v-for="(question, index) in quiz.questions">
+          <div v-show="index === questionIndex">
+            <h2>{{ question.text }}</h2>
+            <ol>
+              <li v-for="response in question.responses">
+                <label>
+                  <input type="radio" 
+                         v-bind:value="response.correct" 
+                         v-bind:name="index" 
+                         v-model="userResponses[index]"> {{response.text}}
+                </label>
+              </li>
+            </ol
+            <button v-if="questionIndex > 0" v-on:click="prev">
+              Back
+            </button>
+            <button v-on:click="next">
+              Next
+            </button>
+          </div>
+        </div>
+        <div v-show="questionIndex === quiz.questions.length">
+          <h2>
+          You Killed it!!
+        </h2>
+          <p>
+            Your Final Marks: {{ score() }} / {{ quiz.questions.length }} <br>try again.
+          </p>
+        </div>
+      </div>
+      
+    
+      <script src="https://vuejs.org/js/vue.js"></script>
+      <script>
+        window.onload=function(){
+         
+          var quiz = {
+            title: 'Life Sciences Quiz',
+            questions:[
+                {
+                    text: "Plants use oxygen..",
+                    responses:[
+                        {text: 'continuosly', correct: true},
+                        {text: 'during the day only.'},
+                        {text: 'during the night only.'},
+                        {text: 'during photosynthesis only.'}, 
+                    ]
+                },{
+                    text: "Which of the following substances can directly be absorbed by blood without further digestion?",
+                    responses:[
+                        {text: 'Proteins'},
+                        {text: 'Starch'},
+                        {text: 'Glucose', correct: true},
+                        {text: 'Fats'},
+                    ]
+                },  {
+                    text: "Which of the following occurs during inhalation in a human?",
+                    responses:[
+                        {text: 'Pressure within the thoracic cavity decreases', correct: true},
+                        {text: 'The lungs collapse'},
+                        {text: 'The diaphragm relaxes'},
+                        {text: 'Pressure in the abdominal cavity decreases'},
+                    ]
+                }, {
+                    text:"The rate of breathing is regulated by the medulla oblongata, mainly …",
+                    responses:[
+                        {text: 'under voluntary control.'},
+                        {text: 'according to the oxygen level of blood.'},
+                        {text: 'according to the blood pressure.'},
+                        {text: 'according to the carbon dioxide level of blood.', correct: true},
+                    ]
+                }, {
+                    text:"Which of the following is part of the human circulatory system?",
+                    responses:[
+                        {text: 'Glomerulus'},
+                        {text: 'Convoluted tubules'},
+                        {text: 'Loop of Henlé'},
+                        {text: 'Bowman’s capsule', correct: true},
+                    ]
+                },{
+                    text:"Which of the following is a density-dependent factor?",
+                    responses:[
+                        {text: 'Drought'},
+                        {text: 'Temperature'},
+                        {text: 'Predation', correct: true},
+                        {text: 'Fire'},
+                    ]
+                },{
+                    text:"The disorder resulting from insufficient intake of energy food:",
+                    responses:[
+                        {text: 'Kwashiorkor'},
+                        {text: 'Marasmus', correct: true},
+                        {text: 'Atherosclerosis'},
+                        {text: 'Bulimia'},
+                    ]
+                },{
+                    text:"Alternation of generations is exhibited by …",
+                    responses:[
+                        {text: 'Bryophytes.'},
+                        {text: 'Pteridophytes.'},
+                        {text: 'Spermatophytes.'},
+                        {text: 'All plants', correct: true},
+                    ]
+                },{
+                    text:"The event that leads from the haploid stage to the diploid stage in alternation of generations:",
+                    responses:[
+                        {text: 'Germination'},
+                        {text: 'Fertilisation', correct: true},
+                        {text: 'Meiosis'},
+                        {text: 'Mitosis'},
+                    ]
+                },{
+                    text:"In gymnosperms pollination is exclusively by ...",
+                    responses:[
+                        {text: 'animals.'},
+                        {text: 'water.'},
+                        {text: 'wind.', correct: true,},
+                        {text: 'insects.'},
+                    ]
+                },{
+                    text:"Land plants are probably descendants of which of these groups?",
+                    responses:[
+                        {text: 'Green algae', correct: true},
+                        {text: 'Red algae'},
+                        {text: 'Brown algae'},
+                        {text: 'Angiosperms'},
+                    ]
+                },{
+                    text:"The part of the flower which becomes the fruit is the …",
+                    responses:[
+                        {text: 'petals.'},
+                        {text: 'ovary.', correct: true},
+                        {text: 'ovule.'},
+                        {text: 'anther.'},
+                    ]
+                },{
+                    text:"Which of the following is NOT a threat to food security?",
+                    responses:[
+                        {text: 'Climate change'},
+                        {text: 'Human exponential population growth'},
+                        {text: 'Birth control', correct: true},
+                        {text: 'Wastage'},
+                    ]
+                },{
+                    text:"Which one of the following processes is responsible for the peoduction of male gametes?",
+                    responses:[
+                        {text: 'Spermatogenesis', correct: true},
+                        {text: 'Oogenesis'},
+                        {text: 'Ejaculation'},
+                        {text: 'Ovulation'},
+                    ]
+                },{
+                    text:"The part of the central nervous system that protects the human <br> body from serious injuries when a person steps barefoot on a thorn <br> is the...",
+                    responses:[
+                        {text: 'cerebellum'},
+                        {text: 'medulla oblongata'},
+                        {text: 'spinal cord', correct: true},
+                        {text: 'cerebrum'},
+                    ]
+                },{
+                    text:"When a person run a race, sweating helps to...",
+                    responses:[
+                        {text: 'regulate the amount of salt in the body', correct: true},
+                        {text: 'control the amount of glucose in the body'},
+                        {text: 'cool the body through evaporation'},
+                        {text: 'regulate the amount of water in the body'},
+                    ]
+                },{
+                    text:"Which ONE of the following is a function of adrenalin?",
+                    responses:[
+                        {text: 'Low blood pressure'},
+                        {text: 'Promoting the conversion of glucose to glycogen'},
+                        {text: 'Increase skeletal muscle tone', correct: true},
+                        {text: 'Causing the blood vessel of the skin to dilate'},
+                    ]
+                },{
+                    text:"Cells that can differentiate into any type of cell are called...",
+                    responses:[
+                        {text: 'sex cells'},
+                        {text: 'daughter cells'},
+                        {text: 'stem cells', correct: true},
+                        {text: 'haploid cells'},
+                    ]
+                },{
+                    text:"The DNA of different species only differs in the...",
+                    responses:[
+                        {text: 'components of the nucleotides'},
+                        {text: 'sequence of the nucleotides' , correct: true},
+                        {text: 'type of bond between the nitrogeneous bases'},
+                        {text: 'type of sugar that it contains'},
+                    ]
+                },{
+                    text:"Adenine pairs with...",
+                    responses:[
+                        {text: 'Uracil'},
+                        {text: 'RNA'},
+                        {text: 'Guanine', correct: true},
+                        {text: 'Tyhmine'},
+                    ]
+                } 
+        ]
+      };
+            
+      new Vue({
+        el: '#app',
+        data: {
+          quiz: quiz,
+        
+          questionIndex: 0,
+          
+          userResponses: Array(quiz.questions.length).fill(false)
+        },
+       
+        methods: {
+         
+          next: function() {
+            this.questionIndex++;
+          },
+         
+          prev: function() {
+            this.questionIndex--;
+          },
+          
+          score: function() {
+            return this.userResponses.filter(function(val) { return val }).length;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
